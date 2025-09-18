@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간단한 QR 코드 생성기</title>
+    <!-- QR 코드 생성 라이브러리 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #e0e6ed;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        p {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        #textInput {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #textInput:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        .btn-group {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        #qrcode-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        #qrcode {
+            border: 5px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR 코드 생성기</h1>
+        <p>텍스트나 URL을 입력하고 '생성' 버튼을 누르세요.</p>
+        <input type="text" id="textInput" placeholder="예: https://www.google.com" required>
+        <div class="btn-group">
+            <button onclick="generateQR()">생성</button>
+        </div>
+        <div id="qrcode-container">
+            <div id="qrcode"></div>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            const text = document.getElementById('textInput').value;
+            const qrcodeContainer = document.getElementById('qrcode');
+
+            if (text) {
+                // 기존 QR 코드를 지우고 새로 생성
+                qrcodeContainer.innerHTML = '';
+                new QRCode(qrcodeContainer, {
+                    text: text,
+                    width: 256,
+                    height: 256
+                });
+            } else {
+                alert('내용을 입력해주세요.');
+            }
+        }
+    </script>
+</body>
+</html>
